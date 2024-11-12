@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://b475fqfky5tss"]
+
+[ext_resource type="Script" path="res://Collactables The Game/Scripts/gun.gd" id="1_kkxlx"]
+[ext_resource type="Texture2D" uid="uid://cswb5do8rrj7q" path="res://pistol/pistol.png" id="2_4p80n"]
+[ext_resource type="PackedScene" uid="uid://bhh2pjetui0j7" path="res://Collactables The Game/bullet.tscn" id="3_1m0rv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_64cay"]
+radius = 477.038
+
+[node name="Gun" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_kkxlx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_64cay")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+position = Vector2(57, -1)
+scale = Vector2(0.645946, 0.592231)
+
+[node name="Pistol" type="Sprite2D" parent="WeaponPivot"]
+texture_filter = 1
+position = Vector2(2, -1)
+scale = Vector2(0.663229, 0.626796)
+texture = ExtResource("2_4p80n")
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot/Pistol"]
+unique_name_in_owner = true
+position = Vector2(24.8593, -10.405)
+
+[node name="Bullet" parent="WeaponPivot/Pistol/ShootingPoint" instance=ExtResource("3_1m0rv")]
+position = Vector2(1111.22, 375.678)
+scale = Vector2(0.624027, 0.783953)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

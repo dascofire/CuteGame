@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://ixr0a8nnd8ue"]
+
+[ext_resource type="PackedScene" uid="uid://dnf057accoosw" path="res://Scens/Player/Player.tscn" id="1_82mbo"]
+[ext_resource type="Script" path="res://Scens/Scripts/World/sevaival_game.gd" id="1_et0vu"]
+[ext_resource type="PackedScene" uid="uid://dlyqis30sa73x" path="res://Collactables The Game/tree_cap.tscn" id="2_y5m4l"]
+
+[sub_resource type="Curve2D" id="Curve2D_xm0j6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -190, -202, 0, 0, 0, 0, 2164, -202, 0, 0, 0, 0, 2169, 1244, 0, 0, 0, 0, -195, 1249, 0, 0, 0, 0, -190, -197)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_et0vu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -30
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1916.0
+offset_bottom = 1076.0
+
+[node name="Player" parent="." instance=ExtResource("1_82mbo")]
+position = Vector2(834, 542)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-834, -542)
+curve = SubResource("Curve2D_xm0j6")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-190, -202)
+
+[node name="TreeCap" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(600, 286)
+
+[node name="TreeCap2" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(1520, 238)
+
+[node name="TreeCap3" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(620, 862)
+
+[node name="TreeCap4" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(1412, 770)
+
+[node name="TreeCap5" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(512, 206)
+
+[node name="TreeCap6" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(524, 370)
+
+[node name="TreeCap7" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(712, 822)
+
+[node name="TreeCap8" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(1524, 822)
+
+[node name="TreeCap9" parent="." instance=ExtResource("2_y5m4l")]
+position = Vector2(1604, 318)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.580392)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 118
+text = "Game Over
+"
+
+[connection signal="health_deplate" from="Player" to="." method="_on_player_health_deplate"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

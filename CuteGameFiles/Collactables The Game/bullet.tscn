@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhh2pjetui0j7"]
+
+[ext_resource type="Script" path="res://Collactables The Game/Scripts/bullet.gd" id="1_op1nh"]
+[ext_resource type="Texture2D" uid="uid://dftkbqwsfd68r" path="res://pistol/projectile.png" id="1_uy4an"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oer6h"]
+radius = 21.0238
+
+[node name="Bullet" type="Area2D"]
+top_level = true
+rotation = 0.0124261
+scale = Vector2(0.587875, 0.591385)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_op1nh")
+
+[node name="Projectile" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-12, -1)
+texture = ExtResource("1_uy4an")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_oer6h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
